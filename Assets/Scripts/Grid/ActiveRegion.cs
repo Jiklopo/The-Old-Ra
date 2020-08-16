@@ -10,8 +10,10 @@ public class ActiveRegion : MonoBehaviour
     [SerializeField] Tilemap tilemap;
     [SerializeField] int radius = 30;
     [SerializeField] List<Vector3Int> activeCells = new List<Vector3Int>();
+    public static ActiveRegion Instance { get; private set; }
     private void Awake()
     {
+        Instance = this;
         grid = GetComponent<Grid>();
         for(int i = radius; i > -radius; i--)
         {
@@ -33,6 +35,8 @@ public class ActiveRegion : MonoBehaviour
 
     public void ActivateCell(Vector3Int cellPos)
     {
+        if (!PlayerMoney.Instance.Withdraw(50))
+            return;
         activeCells.Add(cellPos);
         tilemap.SetTile(cellPos, null);
     }

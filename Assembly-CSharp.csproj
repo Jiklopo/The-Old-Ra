@@ -62,6 +62,8 @@
     <Compile Include="Assets\Scripts\Grid\PlayerMoney.cs" />
     <Compile Include="Assets\Scripts\Observable\ObservableMonoBehaviour.cs" />
     <Compile Include="Assets\Scripts\Observable\Observer.cs" />
+    <Compile Include="Assets\Scripts\Babka\Babka.cs" />
+    <Compile Include="Assets\Scripts\GameControllers\GameSettings.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

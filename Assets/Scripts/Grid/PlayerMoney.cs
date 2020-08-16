@@ -12,7 +12,7 @@ public class PlayerMoney : ObservableMonoBehaviour
             Notify();
         }
     }
-    int money;
+    int money = 200;
     private void Awake()
     {
         Instance = this;
