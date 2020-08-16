@@ -13,5 +13,4 @@ MonoBehaviour:
   m_Name: Game Settings
   m_EditorClassIdentifier: 
   mapRadius: 30
-  attackInterval: 7.5
-  regionsToGet: 2
+  attackInterval: 3
