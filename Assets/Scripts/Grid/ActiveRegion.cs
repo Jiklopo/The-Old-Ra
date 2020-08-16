@@ -11,6 +11,7 @@ public class ActiveRegion : MonoBehaviour
     [SerializeField] int radius = 30;
     [SerializeField] List<Vector3Int> activeCells = new List<Vector3Int>();
     public static ActiveRegion Instance { get; private set; }
+    public int CellCount => activeCells.Count;
     private void Awake()
     {
         Instance = this;

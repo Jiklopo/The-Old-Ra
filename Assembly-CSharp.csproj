@@ -55,15 +55,17 @@
     <Analyzer Include="C:\Program Files (x86)\Microsoft Visual Studio Tools for Unity\16.0\Analyzers\Microsoft.Unity.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Scripts\Player\PlayerController.cs" />
-    <Compile Include="Assets\Scripts\Grid\GridObject.cs" />
-    <Compile Include="Assets\Scripts\Grid\GridController.cs" />
-    <Compile Include="Assets\Scripts\Grid\ActiveRegion.cs" />
-    <Compile Include="Assets\Scripts\Grid\PlayerMoney.cs" />
     <Compile Include="Assets\Scripts\Observable\ObservableMonoBehaviour.cs" />
-    <Compile Include="Assets\Scripts\Observable\Observer.cs" />
+    <Compile Include="Assets\Scripts\Grid\PlayerMoney.cs" />
+    <Compile Include="Assets\Scripts\Player\PlayerController.cs" />
+    <Compile Include="Assets\Scripts\Grid\GridController.cs" />
+    <Compile Include="Assets\Scripts\Observable\ObserverMonoBehaviour.cs" />
+    <Compile Include="Assets\Scripts\Grid\ActiveRegion.cs" />
+    <Compile Include="Assets\Scripts\Grid\GridObject.cs" />
     <Compile Include="Assets\Scripts\Babka\Babka.cs" />
-    <Compile Include="Assets\Scripts\GameControllers\GameSettings.cs" />
+    <Compile Include="Assets\Scripts\Scriptable Objects\GameSettings.cs" />
+    <Compile Include="Assets\Scripts\GameControllers\TurnManager.cs" />
+    <Compile Include="Assets\Scripts\Observable\IObserver.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

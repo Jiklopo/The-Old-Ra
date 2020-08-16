@@ -3,14 +3,14 @@ using UnityEngine;
 
 public abstract class ObservableMonoBehaviour: MonoBehaviour
 {
-    List<Observer> observers = new List<Observer>();
+    List<IObserver> observers = new List<IObserver>();
     protected void Notify()
     {
         foreach (var o in observers)
             o.Notify();
     }
 
-    public void Subscribe(Observer o)
+    public void Subscribe(IObserver o)
     {
         observers.Add(o);
     }

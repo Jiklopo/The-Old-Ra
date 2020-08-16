@@ -15,7 +15,6 @@ public class GridController : MonoBehaviour
 
         foreach(var o in objects)
         {
-            //o.transform.SetParent(transform);
             var cellPos = grid.WorldToCell(o.transform.position);
             o.cellPos = cellPos;
             o.transform.position = (Vector3)cellPos * grid.cellSize.x;

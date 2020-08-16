@@ -1,35 +1,46 @@
 ﻿using System.Collections;
 using UnityEngine;
 
-public class Babka : MonoBehaviour
+public class Babka : MonoBehaviour, IObserver
 {
     GameSettings settings;
-    float time = 0;
+    int turnToAttack;
+    Vector3Int cell;
 
     private void Awake()
     {
         settings = Resources.Load<GameSettings>("Scriptable Objects/Game Settings");
+        turnToAttack = settings.attackInterval;
     }
-    private void Update()
-    {
-        if(Time.time > time)
-        {
-            time = Time.time + settings.attackInterval;
-            Attack();
-        }
 
+    private void Start()
+    {
+        TurnManager.Instance.Subscribe(this);
+        StartCoroutine(FindCellCoroutine());
     }
 
     void Attack()
     {
-        for (int i = 0; i < settings.regionsToGet; i++)
+        ActiveRegion.Instance.DeactivateCell(cell);
+        StartCoroutine(FindCellCoroutine());
+    }
+
+    IEnumerator FindCellCoroutine()
+    {
+        do
         {
-            Vector3Int cell;
-            do
-            {
-                cell = new Vector3Int(Random.Range(-settings.mapRadius, settings.mapRadius), Random.Range(-settings.mapRadius, settings.mapRadius), 0);
-            } while (!ActiveRegion.Instance.IsCellActive(cell));
-            ActiveRegion.Instance.DeactivateCell(cell);
+            cell = new Vector3Int(Random.Range(-settings.mapRadius, settings.mapRadius), Random.Range(-settings.mapRadius, settings.mapRadius), 0);
+        } while (ActiveRegion.Instance.CellCount > 0 && !ActiveRegion.Instance.IsCellActive(cell));
+        yield return new WaitForEndOfFrame();
+    }
+
+    public void Notify()
+    {
+        turnToAttack--;
+        if (turnToAttack <= 0)
+        {
+            turnToAttack = settings.attackInterval;
+            Attack();
         }
     }
 }
