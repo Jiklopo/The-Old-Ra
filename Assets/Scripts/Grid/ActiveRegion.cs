@@ -7,31 +7,39 @@ public class ActiveRegion : MonoBehaviour
 {
     Grid grid;
     [SerializeField] Tile shadeTile;
-    [SerializeField] Tilemap shadeTilemap;
-    [SerializeField] List<Vector2Int> activeCells = new List<Vector2Int>();
+    [SerializeField] Tilemap tilemap;
+    [SerializeField] int radius = 30;
+    [SerializeField] List<Vector3Int> activeCells = new List<Vector3Int>();
     private void Awake()
     {
         grid = GetComponent<Grid>();
-        for(int i = 50; i > -50; i--)
+        for(int i = radius; i > -radius; i--)
         {
-            for (int j = 50; j > -50; j--)
+            for (int j = radius; j > -radius; j--)
             {
                 Vector3Int cell = new Vector3Int(i, j, 0);
                 if (IsCellActive(cell))
-                    break;
+                    continue;
 
-                shadeTilemap.SetTile(cell, shadeTile);
+                tilemap.SetTile(cell, shadeTile);
             }
         }
     }
 
-    public bool IsCellActive(Vector2Int cellPos)
+    public bool IsCellActive(Vector3Int cellPos)
     {
         return activeCells.Contains(cellPos);
     }
 
-    public bool IsCellActive(Vector3Int cellPos)
+    public void ActivateCell(Vector3Int cellPos)
     {
-        return IsCellActive((Vector2Int)cellPos);
+        activeCells.Add(cellPos);
+        tilemap.SetTile(cellPos, null);
+    }
+
+    public void DeactivateCell(Vector3Int cellPos)
+    {
+        activeCells.Remove(cellPos);
+        tilemap.SetTile(cellPos, shadeTile);
     }
 }

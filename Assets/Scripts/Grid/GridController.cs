@@ -12,6 +12,7 @@ public class GridController : MonoBehaviour
         grid = GetComponent<Grid>();
         activeRegion = GetComponent<ActiveRegion>();
         objects = FindObjectsOfType<GridObject>();
+
         foreach(var o in objects)
         {
             //o.transform.SetParent(transform);
@@ -21,8 +22,12 @@ public class GridController : MonoBehaviour
         }
     }
 
-    public void ActivateCell(Vector2Int cellPos)
+    public void ActivateCell(Vector3Int cellPos)
     {
+        if (!activeRegion.IsCellActive(cellPos))
+        {
+            activeRegion.ActivateCell(cellPos);
+        }
         foreach(var o in objects)
         {
             if (o.cellPos.Equals(cellPos))
@@ -31,5 +36,10 @@ public class GridController : MonoBehaviour
                 return;
             }
         }
+    }
+
+    public void ActivateCell(Vector3 worldPosition)
+    {
+        ActivateCell(grid.WorldToCell(worldPosition));
     }
 }
