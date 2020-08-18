@@ -1,9 +1,11 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] float cellSize = 2.56f;
     GridController gridController;
+    bool controlable = true;
 
     private void Awake()
     {
@@ -12,8 +14,22 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
+        if (!controlable)
+            return;
         Move();
         Action();
+    }
+
+    public void FreezeControlFor(float time)
+    {
+        StartCoroutine(FreezeControlCoroutine(time));
+    }
+
+    IEnumerator FreezeControlCoroutine(float time)
+    {
+        controlable = false;
+        yield return new WaitForSeconds(time);
+        controlable = true;
     }
 
     private void Move()
