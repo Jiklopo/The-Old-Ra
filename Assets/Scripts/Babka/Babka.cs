@@ -2,24 +2,28 @@
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-public class Babka : MonoBehaviour, IObserver
+public class Babka : MonoBehaviour
 {
     [SerializeField] Tile attackedZoneTile;
     [SerializeField] Tilemap tilemap;
     GameSettings settings;
-    int turnToAttack;
+    float time;
     Vector3Int cell;
-
-    private void Awake()
-    {
-    }
-
+    
     private void Start()
     {
         settings = SettingsManager.Instance.Settings;
-        turnToAttack = settings.attackInterval;
-        TurnManager.Instance.Subscribe(this);
+        time = settings.attackInterval;
         StartCoroutine(FindCellCoroutine());
+    }
+
+    private void Update()
+    {
+        if(Time.time > time)
+        {
+            time = Time.time + settings.attackInterval;
+            Attack();
+        }
     }
 
     void Attack()
@@ -36,15 +40,5 @@ public class Babka : MonoBehaviour, IObserver
         } while (ActiveRegion.Instance.CellCount > 0 && !ActiveRegion.Instance.IsCellActive(cell));
         tilemap.SetTile(cell, attackedZoneTile);
         yield return new WaitForEndOfFrame();
-    }
-
-    public void Notify()
-    {
-        turnToAttack--;
-        if (turnToAttack <= 0)
-        {
-            turnToAttack = settings.attackInterval;
-            Attack();
-        }
     }
 }

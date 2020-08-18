@@ -4,5 +4,5 @@
 public class GameSettings : ScriptableObject
 {
     public int mapRadius;
-    public int attackInterval;
+    public float attackInterval;
 }

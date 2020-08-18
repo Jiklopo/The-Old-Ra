@@ -29,9 +29,6 @@ public class PlayerController : MonoBehaviour
         else if (Input.GetKeyDown(KeyCode.D))
             x = 1;
 
-        if (x != 0 || y != 0)
-            TurnManager.Instance.NextTurn();
-
         transform.Translate(new Vector3(x, y) * cellSize);
     }
 
