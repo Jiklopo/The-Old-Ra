@@ -6,9 +6,11 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float cellSize = 2.56f;
     GridController gridController;
     bool controlable = true;
+    public static PlayerController Instance { get; private set; }
 
     private void Awake()
     {
+        Instance = this;
         gridController = FindObjectOfType<GridController>();
     }
 

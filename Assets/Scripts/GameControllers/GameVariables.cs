@@ -11,6 +11,8 @@ public class GameVariables : MonoBehaviour
     public float AttackInterval => attackInterval;
     [SerializeField] int startRadius;
     public int StartRadius => startRadius;
+    [SerializeField] float digTime;
+    public float DigTime => digTime;
     public static GameVariables Instance { get; private set; }
     private void Awake()
     {

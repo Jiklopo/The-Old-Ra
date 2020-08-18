@@ -8,6 +8,7 @@ public class Babka : MonoBehaviour
     [SerializeField] Tilemap tilemap;
     float attackInterval => GameVariables.Instance.AttackInterval;
     int mapRadius => GameVariables.Instance.MapRadius;
+    ActiveRegion activeRegion => ActiveRegion.Instance;
     float time;
     Vector3Int cell;
     
@@ -28,7 +29,9 @@ public class Babka : MonoBehaviour
 
     void Attack()
     {
-        ActiveRegion.Instance.DeactivateCell(cell);
+        if (activeRegion.CellCount == 0)
+            return;
+        activeRegion.DeactivateCell(cell);
         StartCoroutine(FindCellCoroutine());
     }
 
@@ -37,7 +40,7 @@ public class Babka : MonoBehaviour
         do
         {
             cell = new Vector3Int(Random.Range(-mapRadius, mapRadius), Random.Range(-mapRadius, mapRadius), 0);
-        } while (ActiveRegion.Instance.CellCount > 0 && !ActiveRegion.Instance.IsCellActive(cell));
+        } while (activeRegion.CellCount > 0 && !activeRegion.IsCellActive(cell));
         tilemap.SetTile(cell, attackedZoneTile);
         yield return new WaitForEndOfFrame();
     }

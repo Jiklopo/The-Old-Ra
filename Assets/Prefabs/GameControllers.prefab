@@ -47,6 +47,7 @@ MonoBehaviour:
   mapRadius: 20
   attackInterval: 10
   startRadius: 5
+  digTime: 0.3
 --- !u!114 &5042477879472083271
 MonoBehaviour:
   m_ObjectHideFlags: 0

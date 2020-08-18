@@ -8,13 +8,14 @@ public class GridController : MonoBehaviour
 
     Grid grid;
     Dictionary<Vector3Int, GridObject> objects = new Dictionary<Vector3Int, GridObject>();
-    ActiveRegion activeRegion;
+    ActiveRegion activeRegion => ActiveRegion.Instance;
+    PlayerController player => PlayerController.Instance;
+    TreasureManager treasureManager => TreasureManager.Instance;
+    GameVariables settings => GameVariables.Instance;
 
     private void Awake()
     {
         grid = GetComponent<Grid>();
-        activeRegion = GetComponent<ActiveRegion>();
-
         foreach(var o in FindObjectsOfType<GridObject>())
         {
             var cellPos = grid.WorldToCell(o.transform.position);
@@ -45,6 +46,7 @@ public class GridController : MonoBehaviour
         fence.transform.position = (Vector3)cellPos * grid.cellSize.x;
         fence.cellPos = cellPos;
         objects.Add(cellPos, fence);
-        TreasureManager.Instance.TryGetTreasure();
+        treasureManager.TryGetTreasure();
+        player.FreezeControlFor(settings.DigTime);
     }
 }
