@@ -670,17 +670,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shadeTile: {fileID: 11400000, guid: 1434b932d5aee8244b5ae9287b7680a3, type: 2}
   tilemap: {fileID: 1233778480}
-  radius: 20
-  activeCells:
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 1, z: 0}
-  - {x: 1, y: 0, z: 0}
-  - {x: 1, y: -1, z: 0}
-  - {x: 0, y: -1, z: 0}
-  - {x: -1, y: -1, z: 0}
-  - {x: -1, y: 0, z: 0}
-  - {x: -1, y: 1, z: 0}
-  - {x: 1, y: 1, z: 0}
 --- !u!114 &2028352245
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -835,8 +824,7 @@ PrefabInstance:
       propertyPath: m_Name
       value: GameControllers
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 4609711447758365184, guid: 5da7dd159e9a1bf4cb5bae49ca10025e, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5da7dd159e9a1bf4cb5bae49ca10025e, type: 3}
 --- !u!1001 &7491059196665646597
 PrefabInstance:

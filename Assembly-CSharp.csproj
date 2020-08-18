@@ -61,12 +61,12 @@
     <Compile Include="Assets\Scripts\Grid\GridController.cs" />
     <Compile Include="Assets\Scripts\Observable\IObserver.cs" />
     <Compile Include="Assets\Scripts\Observable\ObserverMonoBehaviour.cs" />
-    <Compile Include="Assets\Scripts\GameControllers\ActiveRegion.cs" />
+    <Compile Include="Assets\Scripts\Grid\ActiveRegion.cs" />
     <Compile Include="Assets\Scripts\Grid\GridObject.cs" />
-    <Compile Include="Assets\Scripts\GameControllers\SettingsManager.cs" />
     <Compile Include="Assets\Scripts\Babka\Babka.cs" />
-    <Compile Include="Assets\Scripts\Scriptable Objects\GameSettings.cs" />
     <Compile Include="Assets\Scripts\Grid\Grid Objects\Fence.cs" />
+    <Compile Include="Assets\Scripts\GameControllers\GameVariables.cs" />
+    <Compile Include="Assets\Scripts\GameControllers\TreasureManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

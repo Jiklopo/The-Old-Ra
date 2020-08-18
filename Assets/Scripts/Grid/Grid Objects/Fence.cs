@@ -4,7 +4,6 @@ public class Fence : GridObject
 {
     [SerializeField] FenceState currentState;
     PlayerController player;
-    GameSettings settings;
     float workTime = 1f;
     private void Awake()
     {
@@ -15,7 +14,7 @@ public class Fence : GridObject
     {
         switch (currentState)
         {
-            case FenceState.UNBUILT:
+            case FenceState.PIT:
                 player.FreezeControlFor(workTime);
                 currentState = FenceState.CONCRETE;
                 return;
@@ -25,14 +24,14 @@ public class Fence : GridObject
                 return;
             case FenceState.BUILT:
                 gameObject.SetActive(false);
-                currentState = FenceState.UNBUILT;
+                currentState = FenceState.PIT;
                 break;
         }
     }
 
     enum FenceState
     {
-        UNBUILT,
+        PIT,
         CONCRETE,
         BUILT
     }

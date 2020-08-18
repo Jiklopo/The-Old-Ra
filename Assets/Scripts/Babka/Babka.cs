@@ -6,14 +6,14 @@ public class Babka : MonoBehaviour
 {
     [SerializeField] Tile attackedZoneTile;
     [SerializeField] Tilemap tilemap;
-    GameSettings settings;
+    float attackInterval => GameVariables.Instance.AttackInterval;
+    int mapRadius => GameVariables.Instance.MapRadius;
     float time;
     Vector3Int cell;
     
     private void Start()
     {
-        settings = SettingsManager.Instance.Settings;
-        time = settings.attackInterval;
+        time = attackInterval;
         StartCoroutine(FindCellCoroutine());
     }
 
@@ -21,7 +21,7 @@ public class Babka : MonoBehaviour
     {
         if(Time.time > time)
         {
-            time = Time.time + settings.attackInterval;
+            time = Time.time + attackInterval;
             Attack();
         }
     }
@@ -36,7 +36,7 @@ public class Babka : MonoBehaviour
     {
         do
         {
-            cell = new Vector3Int(Random.Range(-settings.mapRadius, settings.mapRadius), Random.Range(-settings.mapRadius, settings.mapRadius), 0);
+            cell = new Vector3Int(Random.Range(-mapRadius, mapRadius), Random.Range(-mapRadius, mapRadius), 0);
         } while (ActiveRegion.Instance.CellCount > 0 && !ActiveRegion.Instance.IsCellActive(cell));
         tilemap.SetTile(cell, attackedZoneTile);
         yield return new WaitForEndOfFrame();

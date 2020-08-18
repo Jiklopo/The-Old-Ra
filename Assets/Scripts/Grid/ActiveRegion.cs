@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using JetBrains.Annotations;
+using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -8,10 +10,12 @@ public class ActiveRegion : MonoBehaviour
     Grid grid;
     [SerializeField] Tile shadeTile;
     [SerializeField] Tilemap tilemap;
-    [SerializeField] int radius = 30;
-    [SerializeField] List<Vector3Int> activeCells = new List<Vector3Int>();
-    public static ActiveRegion Instance { get; private set; }
+
+    List<Vector3Int> activeCells = new List<Vector3Int>();
+    int radius => GameVariables.Instance.MapRadius;
+    int startRadius => GameVariables.Instance.StartRadius;
     public int CellCount => activeCells.Count;
+    public static ActiveRegion Instance { get; private set; }
     private void Awake()
     {
         Instance = this;
@@ -20,10 +24,12 @@ public class ActiveRegion : MonoBehaviour
         {
             for (int j = radius; j > -radius; j--)
             {
-                Vector3Int cell = new Vector3Int(i, j, 0);
-                if (IsCellActive(cell))
+                if(Math.Abs(i) < startRadius && Math.Abs(j) < startRadius)
+                {
+                    activeCells.Add(new Vector3Int(i, j, 0));
                     continue;
-
+                }
+                Vector3Int cell = new Vector3Int(i, j, 0);
                 tilemap.SetTile(cell, shadeTile);
             }
         }
@@ -61,5 +67,7 @@ public class ActiveRegion : MonoBehaviour
     {
         activeCells.Remove(cellPos);
         tilemap.SetTile(cellPos, shadeTile);
+        if (CellCount == 0)
+            Debug.Log("Lost!");
     }
 }

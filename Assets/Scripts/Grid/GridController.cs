@@ -5,6 +5,7 @@ using UnityEngine;
 public class GridController : MonoBehaviour
 {
     [SerializeField] Fence fencePrefab;
+
     Grid grid;
     Dictionary<Vector3Int, GridObject> objects = new Dictionary<Vector3Int, GridObject>();
     ActiveRegion activeRegion;
@@ -33,7 +34,7 @@ public class GridController : MonoBehaviour
             activeRegion.ActivateCell(cellPos);
 
         else if (objects.ContainsKey(cellPos))
-            objects[cellPos].Activate();
+            objects[cellPos]?.Activate();
 
         else
             Dig(cellPos);
@@ -44,5 +45,6 @@ public class GridController : MonoBehaviour
         fence.transform.position = (Vector3)cellPos * grid.cellSize.x;
         fence.cellPos = cellPos;
         objects.Add(cellPos, fence);
+        TreasureManager.Instance.TryGetTreasure();
     }
 }
