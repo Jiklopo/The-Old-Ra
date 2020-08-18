@@ -1,20 +1,23 @@
 ﻿using System.Collections;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 public class Babka : MonoBehaviour, IObserver
 {
+    [SerializeField] Tile attackedZoneTile;
+    [SerializeField] Tilemap tilemap;
     GameSettings settings;
     int turnToAttack;
     Vector3Int cell;
 
     private void Awake()
     {
-        settings = Resources.Load<GameSettings>("Scriptable Objects/Game Settings");
-        turnToAttack = settings.attackInterval;
     }
 
     private void Start()
     {
+        settings = SettingsManager.Instance.Settings;
+        turnToAttack = settings.attackInterval;
         TurnManager.Instance.Subscribe(this);
         StartCoroutine(FindCellCoroutine());
     }
@@ -31,6 +34,7 @@ public class Babka : MonoBehaviour, IObserver
         {
             cell = new Vector3Int(Random.Range(-settings.mapRadius, settings.mapRadius), Random.Range(-settings.mapRadius, settings.mapRadius), 0);
         } while (ActiveRegion.Instance.CellCount > 0 && !ActiveRegion.Instance.IsCellActive(cell));
+        tilemap.SetTile(cell, attackedZoneTile);
         yield return new WaitForEndOfFrame();
     }
 

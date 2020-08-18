@@ -34,10 +34,25 @@ public class ActiveRegion : MonoBehaviour
         return activeCells.Contains(cellPos);
     }
 
+    public bool ActiveNeighbours(Vector3Int cellPos)
+    {
+        for(int i = -1; i <= 1; i++)
+        {
+            if (i == 0)
+                continue;
+
+            if (activeCells.Contains(new Vector3Int(cellPos.x + i, cellPos.y, 0))
+                || activeCells.Contains(new Vector3Int(cellPos.x, cellPos.y + i, 0)))
+                return true;
+        }
+        return false;
+    }
+
     public void ActivateCell(Vector3Int cellPos)
     {
-        if (!PlayerMoney.Instance.Withdraw(50))
+        if (!ActiveNeighbours(cellPos) || !PlayerMoney.Instance.Withdraw(50))
             return;
+
         activeCells.Add(cellPos);
         tilemap.SetTile(cellPos, null);
     }
